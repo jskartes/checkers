@@ -1,0 +1,105 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.flex-column-center {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.flex-center {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+body {
+  background-color: #aaa;
+  cursor: default;
+  font-family: sans-serif;
+  height: 100vh;
+}
+
+header {
+  color: #888;
+  font-size: 9vmin;
+  font-weight: bold;
+  letter-spacing: 3vmin;
+  margin-top: -2vmin;
+}
+
+#game-state-message {
+  font-size: 3.5vmin;
+  font-weight: bold;
+  margin-top: 4vmin;
+}
+
+.player-label {
+  font-size: 2.5vmin;
+  text-align: center;
+}
+
+.player-name {
+  font-weight: bold;
+}
+
+.player-pieces {
+  font-size: 7.5vmin;
+  font-weight: bold;
+  letter-spacing: -1vmin;
+}
+
+#board {
+  background-color: white;
+  display: grid;
+  gap: 0.2vmin;
+  grid-template: repeat(8, 7.3vmin) / repeat(8, 7.3vmin);
+  margin: 4vmin;
+  padding: 0.4vmin;
+}
+
+#board > div.red {
+  cursor: pointer;
+  transition: 0.05s ease-in-out;
+}
+
+#board > div.red:hover {
+  background-color: rgba(255, 0, 0, 1);
+  box-shadow: 0 0 1vmin yellow;
+  transform: scale(0.925);
+}
+
+#board > div.red:active {
+  box-shadow: 0 0 2vmin orange;
+  transform: scale(0.875);
+}
+
+.black {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.red {
+  background-color: rgba(255, 0, 0, 0.8);
+}
+
+button {
+  background-color: #888;
+  border: none;
+  border-radius: 1.5vmin;
+  color: #aaa;
+  cursor: pointer;
+  font-size: 2vmin;
+  margin: 3vmin 2.5vmin 0;
+  padding: 1.5vmin;
+  transition: 0.15s ease-in-out;
+  width: 27vmin;
+}
+
+button:hover {
+  background-color: rgba(255, 0, 0, 0.8);
+  color: white;
+  transform: scale(1.1);
+}
