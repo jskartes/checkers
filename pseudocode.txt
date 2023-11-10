@@ -1,2 +1,49 @@
 Link to Figma wireframe:
 https://www.figma.com/file/w3BneKwwx83FOYAjbCVlWC/Checkers?type=design&mode=design&t=btcWXyNEgsbZ0YsQ-0
+
+
+[A] CONFIGURATION
+
+  1) Create classes
+    1.1) Human player
+      1.1.1) Properties:
+        1.1.1.1) Player name
+        1.1.1.2) Game piece color (red for P1 or black for P2)
+        1.1.1.3) Array of game piece objects
+      1.1.2) Methods:
+        1.1.2.1) makeMove()
+    1.2) Computer player
+      1.2.1) Properties:
+        1.2.1.1) Game piece color (black)
+        1.2.1.2) Array of game piece objects
+      1.2.2) Methods:
+        1.2.2.1) makeMove()
+    1.3) Game piece
+      1.3.1) Properties:
+        1.3.1.1) Color (inherited from Player instantiation)
+        1.3.1.2) "Kinged" or not (boolean)
+        1.3.1.3) Current board location
+
+  2) Declare game state variables
+    2.1) Current active player
+    2.2) Current board state
+    2.3) Winner
+
+  3) Cache DOM elements
+    3.1) Game state message
+    3.2) Player names
+    3.3) Player remaining pieces
+    3.4) Game board
+    3.5) Action buttons
+      3.5.1) Reset game button
+      3.5.2) New game button
+
+  4) Set up event listeners
+    4.1) Game board ('click', handleBoardClick())
+    4.2) Action buttons
+      4.2.1) Reset game button ('click', handleResetGameClick())
+      4.2.2) New game button ('click', handleNewGameClick())
+
+
+[B] GAME OPERATION
+

@@ -57,23 +57,21 @@ header {
   display: grid;
   gap: 0.2vmin;
   grid-template: repeat(8, 7.3vmin) / repeat(8, 7.3vmin);
-  margin: 4vmin;
+  margin: 4vmin 6vw;
   padding: 0.4vmin;
 }
 
 #board > div.red {
   cursor: pointer;
-  transition: 0.05s ease-in-out;
+  transition: 0.075s ease-in-out;
 }
 
 #board > div.red:hover {
   background-color: rgba(255, 0, 0, 1);
-  box-shadow: 0 0 1vmin yellow;
   transform: scale(0.925);
 }
 
 #board > div.red:active {
-  box-shadow: 0 0 2vmin orange;
   transform: scale(0.875);
 }
 
@@ -94,7 +92,7 @@ button {
   font-size: 2vmin;
   margin: 3vmin 2.5vmin 0;
   padding: 1.5vmin;
-  transition: 0.15s ease-in-out;
+  transition: 0.1s ease-in-out;
   width: 27vmin;
 }
 
