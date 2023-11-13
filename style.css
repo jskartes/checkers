@@ -75,8 +75,8 @@ header {
 }
 
 #board > div.red:hover {
-  background-color: rgba(255, 0, 0, 1);
-  box-shadow: 0 0 1vmin red;
+  background-color: rgba(255, 0, 0, 0.9);
+  box-shadow: 0 0 1vmin yellow;
   transform: scale(0.925);
 }  
 
@@ -90,7 +90,7 @@ header {
 }
 
 .red {
-  background-color: rgba(255, 0, 0, 0.8);
+  background-color: rgba(255, 0, 0, 0.7);
 }
 
 button {
