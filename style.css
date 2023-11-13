@@ -62,18 +62,27 @@ header {
 }
 
 #board > div.red {
+  align-items: center;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
   transition: 0.075s ease-in-out;
+}
+
+#board > div.red > img {
+  width: 6.8vmin;
 }
 
 #board > div.red:hover {
   background-color: rgba(255, 0, 0, 1);
+  box-shadow: 0 0 1vmin red;
   transform: scale(0.925);
-}
+}  
 
 #board > div.red:active {
+  box-shadow: 0 0 2vmin yellow;
   transform: scale(0.875);
-}
+}  
 
 .black {
   background-color: rgba(0, 0, 0, 0.8);
