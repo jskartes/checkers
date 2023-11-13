@@ -37,4 +37,27 @@ https://www.figma.com/file/w3BneKwwx83FOYAjbCVlWC/Checkers?type=design&mode=desi
 
 [B] GAME OPERATION
 
-  
+  1) Begin game with initialization:
+    1.1) Set state variables to initial values
+    1.2) Render the opening board state
+
+  2) Handle player move:
+    2.1) First, player selects the pawn they wish to move, which is assigned to
+      a state variable
+      2.1.1) Render the board to show legal moves for the chosen piece
+    2.2) Second, player selects a legal move
+      2.2.1) Update that pawn object's board position property
+      2.2.2) If move was a jump, remove opponent's jumped pawn from pawn array
+      2.2.3) If move will "king" player's pawn, set "kinged" status for it
+    2.3) The game checks to see if there is a winner (if one player has 0
+      remaining pawns on the board)
+      2.3.1) If there is a winner, display the result of the game and end the
+        game play loop
+    2.4) Switch the active player to the opposite player, and repeat the process
+      of handling player move
+
+  3) Handle action button clicks
+    3.1) If a player clicks the "reset game" button, re-initialize the game to
+      start from the beginning
+      3.1.1) Reset players' pawn arrays to contain the starting twelve pawns in
+        game-opening configuration
