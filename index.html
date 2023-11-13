@@ -5,6 +5,12 @@
   <meta charset='utf-8'/>
   <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
   <title>Checkers</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@100;400&display=swap" rel="stylesheet">
+
   <link rel='stylesheet' href='./style.css'/>
   <script defer src='./main.js'></script>
 </head>
@@ -12,7 +18,7 @@
 <body class='flex-column-center'>
   <header>CHECKERS</header>
   <section id='console' class='flex-column-center'>
-    <p id='game-state-message'>Player 1, select a piece to move.</p>
+    <p id='game-state-message'></p>
     <div id='board-frame' class='flex-center'>
       <div class='player-info flex-column-center'>
         <p class='player-label'>
@@ -21,7 +27,7 @@
         </p>
         <p id='player-1-pieces' class='player-pieces'></p>
       </div>
-      <div id='board'>
+      <section id='board'>
         <div class='black'></div>
         <div class='red' id='70'></div>
         <div class='black'></div>
@@ -93,7 +99,7 @@
         <div class='black'></div>
         <div class='red' id='03'></div>
         <div class='black'></div>
-      </div>
+      </section>
       <div class='player-info flex-column-center'>
         <p class='player-label'>
           <span class='player-name'>Player 2</span>’s<br/>

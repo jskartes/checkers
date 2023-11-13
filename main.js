@@ -21,7 +21,11 @@ class Pawn {
   render() {
     const id = `${this.boardPosition[0]}${this.boardPosition[1]}`;
     const square = document.getElementById(id);
-    square.innerHTML = `<img src='./assets/${this.color}${this.isKing ? 'back' : 'front'}.png'/>`;
+    square.style.background = `no-repeat center/90% url('./assets/${this.color}${this.isKing ? 'back' : 'front'}.png')`;
+    if (
+      (currentPlayer === 0 && this.color === 'red') ||
+      (currentPlayer === 1 && this.color === 'black')
+    ) square.classList.add('chooseable');
   }
 }
 
@@ -48,25 +52,43 @@ function init() {
     }
   }
   currentBoard = [
-    [2, 2, 2, 2],
-    [2, 2, 2, 2],
-    [2, 2, 2, 2],
+    [players[1][0], players[1][1], players[1][2], players[1][3]],
+    [players[1][4], players[1][5], players[1][6], players[1][7]],
+    [players[1][8], players[1][9], players[1][10], players[1][11]],
     [0, 0, 0, 0],
     [0, 0, 0, 0],
-    [1, 1, 1, 1],
-    [1, 1, 1, 1],
-    [1, 1, 1, 1]
+    [players[0][0], players[0][1], players[0][2], players[0][3]],
+    [players[0][4], players[0][5], players[0][6], players[0][7]],
+    [players[0][8], players[0][9], players[0][10], players[0][11]],
   ];
-  currentPlayer = players[0];
+  currentPlayer = 0;
   winner = null;
   chosenPawn = null;
   render();
 }
 
 function render() {
+  clearSquareCSS();
+  renderTextElements();
+  renderPawns();
+}
+
+function clearSquareCSS() {
+  squares.forEach(square => {
+    square.innerHTML = '';
+    square.classList.remove('chooseable');
+  });
+}
+
+function renderTextElements() {
+  gameStateMessage.innerHTML = chosenPawn ?
+    'Choose a square to move your pawn.' :
+    `<span style='font-weight: 600'>Player ${currentPlayer + 1}</span>, select a piece to move.`;
   player1Pieces.textContent = players[0].length;
   player2Pieces.textContent = players[1].length;
-  squares.forEach(square => square.innerHTML = '');
+}
+
+function renderPawns() {
   for (player of players) {
     for (pawn of player) {
       pawn.render();
@@ -75,6 +97,10 @@ function render() {
 }
 
 function handleBoardClick(event) {
+  console.log(event.target);
+}
+
+function checkForMoves(square) {
 
 }
 

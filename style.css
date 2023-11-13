@@ -17,44 +17,65 @@
 }
 
 body {
-  background-color: #aaa;
+  background-color: black;
   cursor: default;
-  font-family: sans-serif;
+  font-family: 'Londrina Solid', sans-serif;
   height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+body::before {
+  background: url('./assets/tabletop.jpeg');
+  background-size: cover;
+  content: '';
+  height: 100%;
+  left: 0;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -1;
 }
 
 header {
-  color: #888;
+  color: rgb(22, 8, 2);
   font-size: 9vmin;
   font-weight: bold;
   letter-spacing: 3vmin;
   margin-top: -2vmin;
 }
 
+#console {
+  color: rgb(210, 175, 139);
+}
+
 #game-state-message {
   font-size: 3.5vmin;
-  font-weight: bold;
+  font-weight: 100;
+  letter-spacing: 0.1vmin;
   margin-top: 4vmin;
 }
 
 .player-label {
   font-size: 2.5vmin;
+  font-weight: 100;
+  letter-spacing: 0.1vmin;
   text-align: center;
 }
 
 .player-name {
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .player-pieces {
   font-size: 7.5vmin;
-  font-weight: bold;
-  letter-spacing: -1vmin;
+  font-weight: 600;
 }
 
 #board {
   background-color: white;
-  box-shadow: 0 0 2vmin black;
+  box-shadow: 0 0 3vmin 1vmin black;
   display: grid;
   gap: 0.2vmin;
   grid-template: repeat(8, 7.3vmin) / repeat(8, 7.3vmin);
@@ -62,27 +83,18 @@ header {
   padding: 0.4vmin;
 }
 
-#board > div.red {
-  align-items: center;
+.chooseable {
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  transition: 0.075s ease-in-out;
+  transition: 0.05s ease-in-out;
 }
 
-#board > div.red > img {
-  width: 6.8vmin;
-}
-
-#board > div.red:hover {
-  background-color: rgba(255, 0, 0, 0.9);
+.chooseable:hover {
   box-shadow: 0 0 1vmin yellow;
-  transform: scale(0.925);
 }  
 
 #board > div.red:active {
   box-shadow: 0 0 2vmin yellow;
-  transform: scale(0.875);
+  transform: scale(0.925);
 }  
 
 .black {
@@ -90,16 +102,19 @@ header {
 }
 
 .red {
-  background-color: rgba(255, 0, 0, 0.7);
+  background-color: rgba(255, 0, 0, 0.7) !important;
 }
 
 button {
-  background-color: #888;
+  background-color: rgb(22, 8, 2);
   border: none;
   border-radius: 1.5vmin;
-  color: #aaa;
+  color: rgb(210, 175, 139);
   cursor: pointer;
+  font-family: 'Londrina Solid', sans-serif;
   font-size: 2vmin;
+  font-weight: 100;
+  letter-spacing: 0.1vmin;
   margin: 3vmin 2.5vmin 0;
   padding: 1.5vmin;
   transition: 0.1s ease-in-out;
@@ -107,7 +122,8 @@ button {
 }
 
 button:hover {
-  background-color: rgba(255, 0, 0, 0.8);
-  color: white;
+  background-color: rgb(210, 175, 139);
+  color: rgb(22, 8, 2);
+  font-weight: 600;
   transform: scale(1.1);
 }
