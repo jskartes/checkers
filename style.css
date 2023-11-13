@@ -54,6 +54,7 @@ header {
 
 #board {
   background-color: white;
+  box-shadow: 0 0 2vmin black;
   display: grid;
   gap: 0.2vmin;
   grid-template: repeat(8, 7.3vmin) / repeat(8, 7.3vmin);
