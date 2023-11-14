@@ -106,21 +106,26 @@ header {
   transform: scale(0.925);
 }
 
-.legal-regular-move, .legal-jump-move {
-  transition: 0.05s ease-in-out;
-}
-
-.legal-regular-move:hover, .legal-jump-move.hover {
-  transform: scale(0.925);
-}
-
 .legal-regular-move {
   border: 0.75vmin double rgb(0, 225, 0);
 }
 
 .legal-jump-move {
-  border: 0.75vmin double rgb(255, 0, 0);
+  animation: 0.75s infinite jump-move-blink;
 }
+
+@keyframes jump-move-blink {
+  0% {
+    border: 0.75vmin double rgb(255, 0, 0);
+  }
+  100% {
+    border: none;
+  }
+}
+
+.legal-regular-move:hover, .legal-jump-move:hover {
+  transform: scale(0.925);
+}    
 
 button {
   background-color: rgb(22, 8, 2);
