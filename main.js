@@ -19,7 +19,10 @@ class Pawn {
   render() {
     const id = `${this.boardPosition[0]}${this.boardPosition[1]}`;
     const square = document.getElementById(id);
-    square.style.background = `no-repeat center/90% url('./assets/${this.color}${this.isKing ? 'back' : 'front'}.png')`;
+    square.style.backgroundImage = `url('./assets/${this.color}${this.isKing ? 'back' : 'front'}.png')`;
+    square.style.backgroundPosition = 'center';
+    square.style.backgroundSize = '90%';
+    square.style.backgroundRepeat = 'no-repeat';
     if (
       (currentPlayer === 0 && this.color === 'red') ||
       (currentPlayer === 1 && this.color === 'black')
@@ -68,7 +71,7 @@ function render() {
 
 function clearSquareCSS() {
   squares.forEach(square => {
-    square.style.background = 'none';
+    square.style.backgroundColor = 'rgba(255, 0, 0, 0.7)';
     square.classList.remove('chooseable', 'legal-move');
   });
 }

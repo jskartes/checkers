@@ -17,7 +17,7 @@
 }
 
 body {
-  background-color: black;
+  background-color: rgb(98, 24, 24);
   cursor: default;
   font-family: 'Londrina Solid', sans-serif;
   height: 100vh;
@@ -44,6 +44,7 @@ header {
   font-weight: bold;
   letter-spacing: 3vmin;
   margin-top: -2vmin;
+  text-shadow: 0 0 1vmin rgb(210, 175, 139);
 }
 
 #console {
@@ -88,7 +89,7 @@ header {
 }
 
 .red {
-  background-color: rgba(255, 0, 0, 0.7) !important;
+  background-color: rgba(255, 0, 0, 0.7);
 }
 
 .chooseable {
@@ -106,12 +107,11 @@ header {
 }
 
 .legal-move {
-  border: 0.5vmin solid green;
+  border: 0.75vmin double rgb(0, 225, 0);
   transition: 0.05s ease-in-out;
 }
 
 .legal-move:hover {
-  box-shadow: 0 0 1vmin green;
   transform: scale(0.925);
 }
 
