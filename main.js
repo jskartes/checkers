@@ -31,8 +31,7 @@ class Pawn {
 }
 
 
-let currentPlayer, winner, currentBoard, chosenPawn;
-let legalMoves = [];
+let currentPlayer, winner, currentBoard, legalMoves, chosenPawn;
 const players = [[], []]; // Arrays to fill with Pawn objects on init()
 
 
@@ -58,37 +57,43 @@ function init() {
     [players[1][4], 0, players[1][5], 0, players[1][6], 0, players[1][7], 0],
     [0, players[1][8], 0, players[1][9], 0, players[1][10], 0, players[1][11]]
   ];
-
-  /*===== DEV =====*/
-  // players[0][2].isKing = true;
-  // players[0][10].isKing = true;
-  // players[1][2].isKing = true;
-  // players[1][10].isKing = true;
-  // /*===============*/
-
   currentPlayer = 0;
   winner = null;
   chosenPawn = null;
-  legalMoves = [];
+  legalMoves = null;
   render();
 }
 
 function render() {
-  clearSquareCSS();
+  resetSquareCSS();
   renderTextElements();
   renderPawns();
 }
 
-function clearSquareCSS() {
+function resetSquareCSS() {
   squares.forEach(square => {
     square.style.background = 'none';
     square.style.backgroundColor = 'rgba(255, 0, 0, 0.7)';
-    square.classList.remove('chooseable', 'legal-move');
+    square.classList.remove(
+      'chooseable', 
+      'legal-regular-move', 
+      'legal-jump-move'
+    );
   });
   if (legalMoves) {
-    legalMoves.forEach(move => {
+    legalMoves.regularMoves.forEach(move => {
       const id = `${move[0]}${move[1]}`;
-      document.getElementById(id).classList.add('legal-move', 'chooseable');
+      document.getElementById(id).classList.add(
+        'legal-regular-move',
+        'chooseable'
+      );
+    });
+    legalMoves.jumpMoves.forEach(move => {
+      const id = `${move[0]}${move[1]}`;
+      document.getElementById(id).classList.add(
+        'legal-jump-move',
+        'chooseable'
+      );
     });
   }
 }
@@ -117,7 +122,7 @@ function handleBoardClick(event) {
 
   if (!chosenPawn) {
     legalMoves = checkForMoves(coordinates[0], coordinates[1]);
-    if (legalMoves.length === 0) return;
+    if (legalMoves.regularMoves.length === 0 && legalMoves.jumpMoves.length === 0) return;
     chosenPawn = currentBoard[coordinates[0]][coordinates[1]];
   } else {
     if (
@@ -160,14 +165,43 @@ function checkForMoves(row, column) {
       [row - 1, column - 1],
     ];
   }
-  const filtered = possibleMoves.filter(move => {
-    return (
-      (move[0] > -1 && move[0] < 8) &&
-      (move[1] > -1 && move[1] < 8) &&
-      currentBoard[move[0]][move[1]] === 0
-    );
+  const filteredMoves = possibleMoves.filter(move => {
+    return (move[0] > -1 && move[0] < 8) && (move[1] > -1 && move[1] < 8)
   });
-  return filtered;
+  const regularMoves = checkForRegularMoves(filteredMoves);
+  const jumpMoves = checkForJumpMoves(pawn, filteredMoves);
+  return { regularMoves, jumpMoves };
+}
+
+function checkForRegularMoves(possibleMoves) {
+  return possibleMoves.filter(move => currentBoard[move[0]][move[1]] === 0);
+}
+
+function checkForJumpMoves(pawn, possibleMoves) {
+  return possibleMoves.map(move => {
+    const adjacentPawn = currentBoard[move[0]][move[1]];
+    if (
+      !(adjacentPawn instanceof Pawn) ||
+      adjacentPawn.color === pawn.color
+    ) return null;
+    if (       // check up-left
+      (move[0] > pawn.boardPosition[0] && move[1] < pawn.boardPosition[1]) &&
+      currentBoard[move[0] + 1][move[1] - 1] &&
+      currentBoard[move[0] + 1][move[1] - 1] === 0
+    ) return [move[0] + 1, move[1] - 1];
+    else if (  // check up-right
+    (move[0] > pawn.boardPosition[0] && move[1] > pawn.boardPosition[1]) &&
+    currentBoard[move[0] + 1][move[1] + 1] === 0
+    ) return [move[0] + 1, move[1] + 1];
+    else if (  // check down-left
+      (move[0] < pawn.boardPosition[0] && move[1] < pawn.boardPosition[1]) &&
+      currentBoard[move[0] - 1][move[1] - 1] === 0
+    ) return [move[0] - 1, move[1] - 1];
+    else if (  // check down-right
+      (move[0] < pawn.boardPosition[0] && move[1] > pawn.boardPosition[1]) &&
+      currentBoard[move[0] - 1][move[1] + 1] === 0
+    ) return [move[0] - 1, move[1] + 1];
+  }).filter(move => move !== null);
 }
 
 function handleResetGameButtonClick(event) {
