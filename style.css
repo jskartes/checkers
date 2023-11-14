@@ -83,26 +83,36 @@ header {
   padding: 0.4vmin;
 }
 
-.chooseable {
-  cursor: pointer;
-  transition: 0.05s ease-in-out;
-}
-
-.chooseable:hover {
-  box-shadow: 0 0 1vmin yellow;
-}  
-
-#board > div.red:active {
-  box-shadow: 0 0 2vmin yellow;
-  transform: scale(0.925);
-}  
-
 .black {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
 .red {
   background-color: rgba(255, 0, 0, 0.7) !important;
+}
+
+.chooseable {
+  cursor: pointer;
+  transition: 0.05s ease-in-out;
+}  
+
+.chooseable:hover {
+  box-shadow: 0 0 1vmin yellow;
+}    
+
+.chooseable:active {
+  box-shadow: 0 0 2vmin yellow;
+  transform: scale(0.925);
+}
+
+.legal-move {
+  border: 0.5vmin solid green;
+  transition: 0.05s ease-in-out;
+}
+
+.legal-move:hover {
+  box-shadow: 0 0 1vmin green;
+  transform: scale(0.925);
 }
 
 button {
