@@ -32,6 +32,7 @@ class Pawn {
 
 
 let currentPlayer, winner, currentBoard, chosenPawn;
+let legalMoves = [];
 const players = [[], []]; // Arrays to fill with Pawn objects on init()
 
 
@@ -53,9 +54,9 @@ function init() {
     [players[0][8], 0, players[0][9], 0, players[0][10], 0, players[0][11], 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, players[1][8], 0, players[1][9], 0, players[1][10], 0, players[1][11]],
+    [0, players[1][0], 0, players[1][1], 0, players[1][2], 0, players[1][3]],
     [players[1][4], 0, players[1][5], 0, players[1][6], 0, players[1][7], 0],
-    [0, players[1][0], 0, players[1][1], 0, players[1][2], 0, players[1][3]]
+    [0, players[1][8], 0, players[1][9], 0, players[1][10], 0, players[1][11]]
   ];
   currentPlayer = 0;
   winner = null;
@@ -71,9 +72,16 @@ function render() {
 
 function clearSquareCSS() {
   squares.forEach(square => {
+    square.style.background = 'none';
     square.style.backgroundColor = 'rgba(255, 0, 0, 0.7)';
     square.classList.remove('chooseable', 'legal-move');
   });
+  if (legalMoves) {
+    legalMoves.forEach(move => {
+      const id = `${move[0]}${move[1]}`;
+      document.getElementById(id).classList.add('legal-move', 'chooseable');
+    });
+  }
 }
 
 function renderTextElements() {
@@ -97,11 +105,29 @@ function handleBoardClick(event) {
   squares.forEach(square => square.classList.remove('legal-move'));
   // Split digits of id into array of two digits (board coordinates)
   const coordinates = (event.target.id.split('').map(n => parseInt(n)));
-  const legalMoves = checkForMoves(coordinates[0], coordinates[1]);
-  legalMoves.forEach(move => {
-    const id = `${move[0]}${move[1]}`;
-    document.getElementById(id).classList.add('legal-move');
-  });
+
+  if (!chosenPawn) {
+    legalMoves = checkForMoves(coordinates[0], coordinates[1]);
+    if (legalMoves.length === 0) return;
+    chosenPawn = currentBoard[coordinates[0]][coordinates[1]];
+  } else {
+    if (
+      (chosenPawn.boardPosition[0] !== coordinates[0]) &&
+      (chosenPawn.boardPosition[1] !== coordinates[1])
+    ) {
+      currentBoard[chosenPawn.boardPosition[0]][chosenPawn.boardPosition[1]] = 0;
+      chosenPawn.boardPosition = coordinates;
+      if (
+        (chosenPawn.color === 'red' && coordinates[0] === 7) ||
+        (chosenPawn.color === 'black' && coordinates[0] === 0) 
+      ) chosenPawn.isKing = true;
+      currentBoard[coordinates[0]][coordinates[1]] = chosenPawn;
+      currentPlayer = (currentPlayer + 1) % 2;
+    }
+    chosenPawn = null;
+    legalMoves = null;
+  }
+  render();
 }
 
 function checkForMoves(row, column) {
@@ -125,7 +151,11 @@ function checkForMoves(row, column) {
       [row - 1, column - 1],
     ];
   }
-  return possibleMoves.filter(move => currentBoard[move[0]][move[1]] === 0);
+  console.log(possibleMoves);
+
+  const filtered = possibleMoves.filter(move => currentBoard[move[0]][move[1]] === 0);
+  console.log(filtered);
+  return filtered;
 }
 
 function handleResetGameButtonClick(event) {
