@@ -58,9 +58,18 @@ function init() {
     [players[1][4], 0, players[1][5], 0, players[1][6], 0, players[1][7], 0],
     [0, players[1][8], 0, players[1][9], 0, players[1][10], 0, players[1][11]]
   ];
+
+  /*===== DEV =====*/
+  // players[0][2].isKing = true;
+  // players[0][10].isKing = true;
+  // players[1][2].isKing = true;
+  // players[1][10].isKing = true;
+  // /*===============*/
+
   currentPlayer = 0;
   winner = null;
   chosenPawn = null;
+  legalMoves = [];
   render();
 }
 
@@ -151,10 +160,13 @@ function checkForMoves(row, column) {
       [row - 1, column - 1],
     ];
   }
-  console.log(possibleMoves);
-
-  const filtered = possibleMoves.filter(move => currentBoard[move[0]][move[1]] === 0);
-  console.log(filtered);
+  const filtered = possibleMoves.filter(move => {
+    return (
+      (move[0] > -1 && move[0] < 8) &&
+      (move[1] > -1 && move[1] < 8) &&
+      currentBoard[move[0]][move[1]] === 0
+    );
+  });
   return filtered;
 }
 
