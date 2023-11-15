@@ -89,7 +89,7 @@ function resetSquareCSS() {
       );
     });
     legalMoves.jumpMoves.forEach(move => {
-      const id = `${move[0]}${move[1]}`;
+      const id = `${move[0][0]}${move[0][1]}`;
       document.getElementById(id).classList.add(
         'legal-jump-move',
         'chooseable'
@@ -142,7 +142,12 @@ function handleBoardClick(event) {
       ) chosenPawn.isKing = true;
       currentBoard[coordinates[0]][coordinates[1]] = chosenPawn;
       // ...removing opponent's jumped pawn if applicable...
-
+      legalMoves.jumpMoves.forEach(move => {
+        if (move[0][0] === coordinates[0] && move[0][1] === coordinates[1]) {
+          currentBoard[move[1].boardPosition[0]][move[1].boardPosition[1]] = 0;
+          players[(currentPlayer + 1) % 2].splice(players[(currentPlayer + 1) % 2].indexOf(move[1]), 1);
+        }
+      });
       // ...and advancing to next player's turn
       currentPlayer = (currentPlayer + 1) % 2;
     }
@@ -174,10 +179,18 @@ function checkForMoves(row, column) {
     ];
   }
   const filteredMoves = possibleMoves.filter(move => {
-    return currentBoard[move[0]][move[1]] !== undefined;
+    return (
+      currentBoard[move[0]] !== undefined &&
+      currentBoard[move[0]][move[1]] !== undefined
+    )
   });
   const regularMoves = checkForRegularMoves(filteredMoves);
   const jumpMoves = checkForJumpMoves(pawn, filteredMoves);
+
+  console.log('filteredMoves: ', filteredMoves);
+  console.log('regluarMoves: ', regularMoves);
+  console.log('jumpMoves: ', jumpMoves);
+
   return { regularMoves, jumpMoves };
 }
 
@@ -189,25 +202,27 @@ function checkForJumpMoves(pawn, possibleMoves) {
   return possibleMoves.map(move => {
     const adjacentPawn = currentBoard[move[0]][move[1]];
     if (
+      move[0] + 1 > 7 || move[0] - 1 < 0 ||
+      move[1] + 1 > 7 || move[1] - 1 < 0 ||
       !(adjacentPawn instanceof Pawn) ||
       adjacentPawn.color === pawn.color
     ) return null;
     if (       // check up-left
       (move[0] > pawn.boardPosition[0] && move[1] < pawn.boardPosition[1]) &&
       currentBoard[move[0] + 1][move[1] - 1] === 0
-    ) return [move[0] + 1, move[1] - 1];
+    ) return [[move[0] + 1, move[1] - 1], currentBoard[move[0]][move[1]]];
     else if (  // check up-right
       (move[0] > pawn.boardPosition[0] && move[1] > pawn.boardPosition[1]) &&
       currentBoard[move[0] + 1][move[1] + 1] === 0
-    ) return [move[0] + 1, move[1] + 1];
+    ) return [[move[0] + 1, move[1] + 1], currentBoard[move[0]][move[1]]];
     else if (  // check down-left
       (move[0] < pawn.boardPosition[0] && move[1] < pawn.boardPosition[1]) &&
       currentBoard[move[0] - 1][move[1] - 1] === 0
-    ) return [move[0] - 1, move[1] - 1];
+    ) return [[move[0] - 1, move[1] - 1], currentBoard[move[0]][move[1]]];
     else if (  // check down-right
       (move[0] < pawn.boardPosition[0] && move[1] > pawn.boardPosition[1]) &&
       currentBoard[move[0] - 1][move[1] + 1] === 0
-    ) return [move[0] - 1, move[1] + 1];
+    ) return [[move[0] - 1, move[1] + 1], currentBoard[move[0]][move[1]]];
     else return null;
   }).filter(move => move !== null);
 }
