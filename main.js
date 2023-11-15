@@ -32,7 +32,7 @@ class Pawn {
 
 
 let currentPlayer, winner, currentBoard, legalMoves, chosenPawn;
-const players = [[], []]; // Arrays to fill with Pawn objects on init()
+const players = [];
 
 
 function init() {
@@ -132,13 +132,18 @@ function handleBoardClick(event) {
       (chosenPawn.boardPosition[0] !== coordinates[0]) &&
       (chosenPawn.boardPosition[1] !== coordinates[1])
     ) {
+      // Move chosen pawn to new chosen location...
       currentBoard[chosenPawn.boardPosition[0]][chosenPawn.boardPosition[1]] = 0;
       chosenPawn.boardPosition = coordinates;
+      // ..."kinging" that pawn if applicable...
       if (
         (chosenPawn.color === 'red' && coordinates[0] === 7) ||
         (chosenPawn.color === 'black' && coordinates[0] === 0) 
       ) chosenPawn.isKing = true;
       currentBoard[coordinates[0]][coordinates[1]] = chosenPawn;
+      // ...removing opponent's jumped pawn if applicable...
+
+      // ...and advancing to next player's turn
       currentPlayer = (currentPlayer + 1) % 2;
     }
     chosenPawn = null;
@@ -169,17 +174,10 @@ function checkForMoves(row, column) {
     ];
   }
   const filteredMoves = possibleMoves.filter(move => {
-    // return (move[0] > -1 && move[0] < 8) && (move[1] > -1 && move[1] < 8)
     return currentBoard[move[0]][move[1]] !== undefined;
   });
   const regularMoves = checkForRegularMoves(filteredMoves);
   const jumpMoves = checkForJumpMoves(pawn, filteredMoves);
-
-  /*===== DEBUG =====*/
-  console.log('regularMoves: ', regularMoves);
-  console.log('jumpMoves: ', jumpMoves);
-  /*=================*/
-
   return { regularMoves, jumpMoves };
 }
 
@@ -210,6 +208,7 @@ function checkForJumpMoves(pawn, possibleMoves) {
       (move[0] < pawn.boardPosition[0] && move[1] > pawn.boardPosition[1]) &&
       currentBoard[move[0] - 1][move[1] + 1] === 0
     ) return [move[0] - 1, move[1] + 1];
+    else return null;
   }).filter(move => move !== null);
 }
 

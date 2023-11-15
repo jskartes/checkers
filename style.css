@@ -44,7 +44,7 @@ header {
   font-weight: bold;
   letter-spacing: 3vmin;
   margin-top: -2vmin;
-  text-shadow: 0 0 1vmin rgb(210, 175, 139);
+  text-shadow: 0 0 3vmin rgb(210, 175, 139);
 }
 
 #console {
@@ -56,6 +56,7 @@ header {
   font-weight: 100;
   letter-spacing: 0.1vmin;
   margin-top: 4vmin;
+  text-shadow: 0 0 1vmin rgb(22, 8, 2);
 }
 
 .player-label {
@@ -72,6 +73,7 @@ header {
 .player-pieces {
   font-size: 7.5vmin;
   font-weight: 600;
+  text-shadow: 0 0 1vmin rgb(22, 8, 2);
 }
 
 #board {
