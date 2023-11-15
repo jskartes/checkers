@@ -133,10 +133,7 @@ function handleBoardClick(event) {
     if (legalMoves.regularMoves.length === 0 && legalMoves.jumpMoves.length === 0) return;
     chosenPawn = currentBoard[coordinates[0]][coordinates[1]];
   } else {
-    if (
-      (chosenPawn.boardPosition[0] !== coordinates[0]) &&
-      (chosenPawn.boardPosition[1] !== coordinates[1])
-    ) {
+    if (currentBoard[coordinates[0]][coordinates[1]] === 0) {
       // Move chosen pawn to new chosen location...
       currentBoard[chosenPawn.boardPosition[0]][chosenPawn.boardPosition[1]] = 0;
       chosenPawn.boardPosition = coordinates;

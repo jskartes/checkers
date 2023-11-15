@@ -84,6 +84,7 @@ header {
   grid-template: repeat(8, 7.3vmin) / repeat(8, 7.3vmin);
   margin: 4vmin 6vw;
   padding: 0.4vmin;
+  transform: rotate(2deg);
 }
 
 .black {
@@ -118,7 +119,7 @@ header {
 
 @keyframes jump-move-blink {
   0% {
-    border: 0.75vmin double rgb(255, 0, 0);
+    border: 1vmin double rgb(255, 0, 0);
   }
   100% {
     border: none;
