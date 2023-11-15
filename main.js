@@ -99,9 +99,14 @@ function resetSquareCSS() {
 }
 
 function renderTextElements() {
-  gameStateMessage.innerHTML = chosenPawn ?
-    'Choose a square to move your pawn.' :
-    `<span style='font-weight: 600'>Player ${currentPlayer + 1}</span>, select a piece to move.`;
+  if (winner !== null) {
+    gameStateMessage.innerHTML =
+      `<span style='font-weight: 600'>Player ${winner + 1} wins!</span>`;
+  } else {
+    gameStateMessage.innerHTML = chosenPawn ?
+      'Choose a square to move your pawn.' :
+      `<span style='font-weight: 600'>Player ${currentPlayer + 1}</span>, select a piece to move.`;
+    }
   player1Pieces.textContent = players[0].length;
   player2Pieces.textContent = players[1].length;
 }
@@ -154,6 +159,7 @@ function handleBoardClick(event) {
     chosenPawn = null;
     legalMoves = null;
   }
+  checkForWinner();
   render();
 }
 
@@ -186,11 +192,6 @@ function checkForMoves(row, column) {
   });
   const regularMoves = checkForRegularMoves(filteredMoves);
   const jumpMoves = checkForJumpMoves(pawn, filteredMoves);
-
-  console.log('filteredMoves: ', filteredMoves);
-  console.log('regluarMoves: ', regularMoves);
-  console.log('jumpMoves: ', jumpMoves);
-
   return { regularMoves, jumpMoves };
 }
 
@@ -225,6 +226,11 @@ function checkForJumpMoves(pawn, possibleMoves) {
     ) return [[move[0] - 1, move[1] + 1], currentBoard[move[0]][move[1]]];
     else return null;
   }).filter(move => move !== null);
+}
+
+function checkForWinner() {
+  if (players[1].length === 0) winner = 0;
+  if (players[0].length === 0) winner = 1;
 }
 
 function handleResetGameButtonClick(event) {
