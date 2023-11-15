@@ -127,7 +127,10 @@ function handleBoardClick(event) {
     event.target.id.split('').map(coordinate => parseInt(coordinate))
   );
 
-  if (!chosenPawn) {
+  if (
+    !chosenPawn ||
+    currentBoard[coordinates[0]][coordinates[1]].color === chosenPawn.color 
+  ) {
     legalMoves = checkForMoves(coordinates[0], coordinates[1]);
     if (
       legalMoves.regularMoves.length === 0 &&
