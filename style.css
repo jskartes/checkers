@@ -56,9 +56,12 @@ header {
   color: var(--dark-brown);
   font-size: 9vmin;
   font-weight: bold;
-  letter-spacing: 3vmin;
   margin-top: -2vmin;
   text-shadow: 0 0 3vmin var(--light-tan);
+}
+
+header > span {
+  letter-spacing: 3vmin;
 }
 
 #console {
