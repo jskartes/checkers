@@ -134,8 +134,10 @@ function handleBoardClick(event) {
       legalMoves.jumpMoves.length === 0
     ) return;
     chosenPawn = currentBoard[coordinates[0]][coordinates[1]];
-  } else makeMove(coordinates);
-  
+  } else {
+    makeMove(coordinates);
+  }
+
   checkForWinner();
   render();
 }
@@ -148,17 +150,17 @@ function checkForMoves(row, column) {
       [row + 1, column + 1],
       [row + 1, column - 1],
       [row - 1, column + 1],
-      [row - 1, column - 1],
+      [row - 1, column - 1]
     ];
   } else if (pawn.color === 'red') {
     possibleMoves = [
       [row + 1, column + 1],
-      [row + 1, column - 1],
+      [row + 1, column - 1]
     ];
   } else if (pawn.color === 'black') {
     possibleMoves = [
       [row - 1, column + 1],
-      [row - 1, column - 1],
+      [row - 1, column - 1]
     ];
   }
   const filteredMoves = possibleMoves.filter(move => {
