@@ -6,7 +6,7 @@ const squares = [...document.querySelectorAll('#board > div.red')];
 const resetGameButton = document.getElementById('reset-game-button');
 
 board.addEventListener('click', handleBoardClick);
-resetGameButton.addEventListener('click', handleResetGameButtonClick);
+resetGameButton.addEventListener('click', init);
 
 
 class Pawn {
@@ -121,41 +121,21 @@ function renderPawns() {
 
 function handleBoardClick(event) {
   if (!event.target.classList.contains('chooseable')) return;
-  squares.forEach(square => square.classList.remove(
-    'legal-regular-move',
-    'legal-jump-move'
-  ));
+
   // Split digits of id into array of two digits (board coordinates)
-  const coordinates = (event.target.id.split('').map(n => parseInt(n)));
+  const coordinates = (
+    event.target.id.split('').map(coordinate => parseInt(coordinate))
+  );
 
   if (!chosenPawn) {
     legalMoves = checkForMoves(coordinates[0], coordinates[1]);
-    if (legalMoves.regularMoves.length === 0 && legalMoves.jumpMoves.length === 0) return;
+    if (
+      legalMoves.regularMoves.length === 0 &&
+      legalMoves.jumpMoves.length === 0
+    ) return;
     chosenPawn = currentBoard[coordinates[0]][coordinates[1]];
-  } else {
-    if (currentBoard[coordinates[0]][coordinates[1]] === 0) {
-      // Move chosen pawn to new chosen location...
-      currentBoard[chosenPawn.boardPosition[0]][chosenPawn.boardPosition[1]] = 0;
-      chosenPawn.boardPosition = coordinates;
-      // ..."kinging" that pawn if applicable...
-      if (
-        (chosenPawn.color === 'red' && coordinates[0] === 7) ||
-        (chosenPawn.color === 'black' && coordinates[0] === 0) 
-      ) chosenPawn.isKing = true;
-      currentBoard[coordinates[0]][coordinates[1]] = chosenPawn;
-      // ...removing opponent's jumped pawn if applicable...
-      legalMoves.jumpMoves.forEach(move => {
-        if (move[0][0] === coordinates[0] && move[0][1] === coordinates[1]) {
-          currentBoard[move[1].boardPosition[0]][move[1].boardPosition[1]] = 0;
-          players[(currentPlayer + 1) % 2].splice(players[(currentPlayer + 1) % 2].indexOf(move[1]), 1);
-        }
-      });
-      // ...and advancing to next player's turn
-      currentPlayer = (currentPlayer + 1) % 2;
-    }
-    chosenPawn = null;
-    legalMoves = null;
-  }
+  } else makeMove(coordinates);
+  
   checkForWinner();
   render();
 }
@@ -221,17 +201,39 @@ function checkForJumpMoves(pawn, possibleMoves) {
       (move[0] < pawn.boardPosition[0] && move[1] > pawn.boardPosition[1]) &&
       currentBoard[move[0] - 1][move[1] + 1] === 0
     ) return [[move[0] - 1, move[1] + 1], currentBoard[move[0]][move[1]]];
+    // the above returns are [legal move, jumped pawn] arrays
     else return null;
   }).filter(move => move !== null);
+}
+
+function makeMove(coordinates) {
+  if (currentBoard[coordinates[0]][coordinates[1]] === 0) {
+    // Move chosen pawn to new chosen location...
+    currentBoard[chosenPawn.boardPosition[0]][chosenPawn.boardPosition[1]] = 0;
+    chosenPawn.boardPosition = coordinates;
+    // ..."kinging" that pawn if applicable...
+    if (
+      (chosenPawn.color === 'red' && coordinates[0] === 7) ||
+      (chosenPawn.color === 'black' && coordinates[0] === 0) 
+    ) chosenPawn.isKing = true;
+    currentBoard[coordinates[0]][coordinates[1]] = chosenPawn;
+    // ...removing opponent's jumped pawn if applicable...
+    legalMoves.jumpMoves.forEach(move => {
+      if (move[0][0] === coordinates[0] && move[0][1] === coordinates[1]) {
+        currentBoard[move[1].boardPosition[0]][move[1].boardPosition[1]] = 0;
+        players[(currentPlayer + 1) % 2].splice(players[(currentPlayer + 1) % 2].indexOf(move[1]), 1);
+      }
+    });
+    // ...and advancing to next player's turn
+    currentPlayer = (currentPlayer + 1) % 2;
+  }
+  chosenPawn = null;
+  legalMoves = null;
 }
 
 function checkForWinner() {
   if (players[1].length === 0) winner = 0;
   if (players[0].length === 0) winner = 1;
-}
-
-function handleResetGameButtonClick(event) {
-  init();
 }
 
 
