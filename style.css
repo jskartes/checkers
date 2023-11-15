@@ -3,6 +3,19 @@
   margin: 0;
 }
 
+:root {
+  --board-black-square: rgba(0, 0, 0, 0.8);
+  --board-red-square: rgba(255, 0, 0, 0.7);
+  --chooseable-hover-glow: yellow;
+  --dark-brown: rgb(22, 8, 2);
+  --legal-jump-move-indicator: red;
+  --legal-regular-move-indicator: rgb(0, 225, 0);
+  --light-tan: rgb(210, 175, 139);
+  --pawn-black: rgb(109, 111, 115);
+  --pawn-red: rgb(229, 92, 79);
+  --window-background-color: rgb(98, 24, 24);
+}
+
 .flex-column-center {
   align-items: center;
   display: flex;
@@ -17,7 +30,7 @@
 }
 
 body {
-  background-color: rgb(98, 24, 24);
+  background-color: var(--window-background-color);
   cursor: default;
   font-family: 'Londrina Solid', sans-serif;
   height: 100vh;
@@ -40,16 +53,16 @@ body::before {
 }
 
 header {
-  color: rgb(22, 8, 2);
+  color: var(--dark-brown);
   font-size: 9vmin;
   font-weight: bold;
   letter-spacing: 3vmin;
   margin-top: -2vmin;
-  text-shadow: 0 0 3vmin rgb(210, 175, 139);
+  text-shadow: 0 0 3vmin var(--light-tan);
 }
 
 #console {
-  color: rgb(210, 175, 139);
+  color: var(--light-tan);
 }
 
 #game-state-message {
@@ -57,7 +70,7 @@ header {
   font-weight: 100;
   letter-spacing: 0.1vmin;
   margin-top: 4vmin;
-  text-shadow: 0 0 1vmin rgb(22, 8, 2);
+  text-shadow: 0 0 1vmin var(--dark-brown);
 }
 
 .player-label {
@@ -74,7 +87,7 @@ header {
 .player-pieces {
   font-size: 7.5vmin;
   font-weight: 600;
-  text-shadow: 0 0 1vmin rgb(22, 8, 2);
+  text-shadow: 0 0 1vmin var(--dark-brown);
 }
 
 #board {
@@ -89,11 +102,11 @@ header {
 }
 
 .black {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: var(--board-black-square);
 }
 
 .red {
-  background-color: rgba(255, 0, 0, 0.7);
+  background-color: var(--board-red-square);
 }
 
 .chooseable {
@@ -102,16 +115,16 @@ header {
 }  
 
 .chooseable:hover {
-  box-shadow: 0 0 1vmin yellow;
+  box-shadow: 0 0 1vmin var(--chooseable-hover-glow);
 }    
 
 .chooseable:active {
-  box-shadow: 0 0 2vmin yellow;
+  box-shadow: 0 0 2vmin var(--chooseable-hover-glow);
   transform: scale(0.925);
 }
 
 .legal-regular-move {
-  border: 0.75vmin double rgb(0, 225, 0);
+  border: 0.75vmin double var(--legal-regular-move-indicator);
 }
 
 .legal-jump-move {
@@ -120,7 +133,7 @@ header {
 
 @keyframes jump-move-blink {
   0% {
-    border: 1vmin double rgb(255, 0, 0);
+    border: 1vmin double var(--legal-jump-move-indicator);
   }
   100% {
     border: none;
@@ -132,10 +145,10 @@ header {
 }    
 
 button {
-  background-color: rgb(22, 8, 2);
+  background-color: var(--dark-brown);
   border: none;
   border-radius: 1.5vmin;
-  color: rgb(210, 175, 139);
+  color: var(--light-tan);
   cursor: pointer;
   font-family: 'Londrina Solid', sans-serif;
   font-size: 2vmin;
@@ -148,8 +161,12 @@ button {
 }
 
 button:hover {
-  background-color: rgb(210, 175, 139);
-  color: rgb(22, 8, 2);
+  background-color: var(--light-tan);
+  color: var(--dark-brown);
   font-weight: 600;
   transform: scale(1.1);
+}
+
+button:active {
+  transform: scale(1);
 }

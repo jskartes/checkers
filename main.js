@@ -101,11 +101,11 @@ function resetSquareCSS() {
 function renderTextElements() {
   if (winner !== null) {
     gameStateMessage.innerHTML =
-      `<span style='font-weight: 600'>Player ${winner + 1} wins!</span>`;
+      `<span style='font-weight: 600; color: var(--pawn-${players[winner][0].color})'>Player ${winner + 1} wins!</span>`;
   } else {
     gameStateMessage.innerHTML = chosenPawn ?
       'Choose a square to move your pawn.' :
-      `<span style='font-weight: 600'>Player ${currentPlayer + 1}</span>, select a piece to move.`;
+      `<span style='font-weight: 600; color: var(--pawn-${players[currentPlayer][0].color})'>Player ${currentPlayer + 1}</span>, select a piece to move.`;
     }
   player1Pieces.textContent = players[0].length;
   player2Pieces.textContent = players[1].length;
