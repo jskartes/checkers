@@ -59,30 +59,7 @@ function init() {
     [0, players[1][0], 0, players[1][1], 0, players[1][2], 0, players[1][3]],
     [players[1][4], 0, players[1][5], 0, players[1][6], 0, players[1][7], 0],
     [0, players[1][8], 0, players[1][9], 0, players[1][10], 0, players[1][11]]
-  ];
-  
-  /*===== DEV =====*/
-  // players[0] = [
-  //   new Pawn('red', [1, 3])
-  // ];
-  // players[1] = [
-  //   new Pawn('black', [2, 4]),
-  //   new Pawn('black', [4, 4]),
-  //   new Pawn('black', [6, 4]),
-  // ];
-
-  // currentBoard = [
-  //   [0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, players[0][0], 0, 0, 0, 0],
-  //   [0, 0, 0, 0, players[1][0], 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, players[1][1], 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, players[1][2], 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0, 0, 0]
-  // ]
-  /*===============*/
-
+  ];  
   currentPlayer = 0;
   winner = null;
   chosenPawn = null;
