@@ -185,6 +185,10 @@ function handleResetGameButtonClick() {
   if (!resetCheck) {
     resetCheck = true;
     renderGameResetButton();
+    setTimeout(() => {
+      resetCheck = false;
+      renderGameResetButton();
+    }, 3000);
   } else {
     init();
   }
