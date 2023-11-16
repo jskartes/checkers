@@ -8,7 +8,7 @@ const squares = [...document.querySelectorAll('#board > div.red')];
 const resetGameButton = document.getElementById('reset-game-button');
 
 board.addEventListener('click', handleBoardClick);
-resetGameButton.addEventListener('click', init);
+resetGameButton.addEventListener('click', handleResetGameButtonClick);
 
 
 class Pawn {
@@ -33,7 +33,7 @@ class Pawn {
 }
 
 
-let currentPlayer, winner, currentBoard, legalMoves, chosenPawn;
+let currentPlayer, winner, currentBoard, legalMoves, chosenPawn, resetCheck;
 const players = [];
 
 
@@ -64,6 +64,7 @@ function init() {
   winner = null;
   chosenPawn = null;
   legalMoves = null;
+  resetCheck = false;
   render();
 }
 
@@ -74,6 +75,7 @@ function render() {
   resetSquareCSS();
   renderTextElements();
   renderPawns();
+  renderGameResetButton();
 }
 
 function resetSquareCSS() {
@@ -125,6 +127,32 @@ function renderPawns() {
   }
 }
 
+function renderGameResetButton() {
+  resetGameButton.style.setProperty(
+    '--button-background-color', 'var(--dark-brown)'
+  );
+  resetGameButton.style.setProperty(
+    '--button-color', 'var(--light-tan)'
+  );
+  if (!resetCheck) {
+    resetGameButton.innerText = 'RESET GAME';
+    resetGameButton.style.setProperty(
+      '--hover-background-color', 'var(--light-tan)'
+    );
+    resetGameButton.style.setProperty(
+      '--hover-color', 'var(--dark-brown)'
+    );
+  } else {
+    resetGameButton.innerText = 'YOU SURE? (click again)';
+    resetGameButton.style.setProperty(
+      '--hover-background-color', 'var(--pawn-red)'
+    );
+    resetGameButton.style.setProperty(
+      '--hover-color', 'var(--light-tan)'
+    );
+  }
+}
+
 
 /*===== EVENT HANDLER FUNCTIONS =====*/
 
@@ -151,6 +179,15 @@ function handleBoardClick(event) {
 
   checkForWinner();
   render();
+}
+
+function handleResetGameButtonClick() {
+  if (!resetCheck) {
+    resetCheck = true;
+    renderGameResetButton();
+  } else {
+    init();
+  }
 }
 
 
@@ -194,7 +231,6 @@ function checkForMoves(pawn, row, column) {
     }
   });
 
-  console.log('jumpMoves: ', jumpMoves);
   return { regularMoves, jumpMoves };
 }
 

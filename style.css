@@ -148,10 +148,10 @@ header > span {
 }    
 
 button {
-  background-color: var(--dark-brown);
+  background-color: var(--button-background-color);
   border: none;
   border-radius: 1.5vmin;
-  color: var(--light-tan);
+  color: var(--button-color);
   cursor: pointer;
   font-family: 'Londrina Solid', sans-serif;
   font-size: 2vmin;
@@ -164,8 +164,8 @@ button {
 }
 
 button:hover {
-  background-color: var(--light-tan);
-  color: var(--dark-brown);
+  background-color: var(--hover-background-color);
+  color: var(--hover-color);
   font-weight: 600;
   transform: scale(1.1);
 }
