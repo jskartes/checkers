@@ -1,5 +1,6 @@
 /*===== CONFIGURATION =====*/
 
+const console = document.getElementById('console');
 const gameStateMessage = document.getElementById('game-state-message');
 const player1Pieces = document.getElementById('player-1-pieces');
 const player2Pieces = document.getElementById('player-2-pieces');

@@ -52,6 +52,19 @@ body::before {
   z-index: -1;
 }
 
+#console, button {
+  animation: 2s ease-in fade-in;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 header {
   color: var(--dark-brown);
   font-size: 9vmin;
@@ -102,6 +115,16 @@ header > span {
   margin: 4vmin 6vw;
   padding: 0.4vmin;
   transform: rotate(2deg);
+  animation: 2s ease-in-out spin-in;
+}
+
+@keyframes spin-in {
+  0% {
+    transform: rotate(361deg) scale(0);
+  }
+  100% {
+    transform: rotate(2deg) scale(1);
+  }
 }
 
 .black {
