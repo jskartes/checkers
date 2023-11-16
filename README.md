@@ -34,8 +34,8 @@ You can find the current deployment of CHECKERS by [clicking this link](https://
 
 ### Some things to look forward to ...
 
-
-
 Have you chosen the blinking red square too many times, and now have nobody to play with? Well, have I got a (future) solution! When I have the wherewithal to make your computer a savvy-enough CHECKERS player, you'll be able to test your mettle against it in **AI Opponent Mode**.
 
 So, you *do* regret clicking the blinking red square. Your friend's accusatory side-eye is causing you immense shame. If only time travel were truly possible ... Well, eventually, it might be! Possibly coming soon to a CHECKERS board near you: **Undo Move** functionality. And just like that, friendship restabilized.
+
+Want to apply the pressure? Add a time crunch! I'll be implementing a chess clock–style **Game Timer** feature, so you can show off your quick decision-making prowess ... or meet your demise in the case of a lack thereof.

@@ -163,12 +163,9 @@ function handleBoardClick(event) {
   const coordinates = event.target.getAttribute('id')
                                   .split('')
                                   .map(coordinate => parseInt(coordinate));
-  if (
-    !chosenPawn ||
-    (chosenPawn && currentBoard[coordinates[0]][coordinates[1]])
-  ) {
-    const pawn = currentBoard[coordinates[0]][coordinates[1]];
-    legalMoves = checkForMoves(pawn, coordinates[0], coordinates[1]);
+  const targetPawn = currentBoard[coordinates[0]][coordinates[1]];
+  if (!chosenPawn || (chosenPawn && targetPawn)) {
+    legalMoves = checkForMoves(targetPawn, coordinates[0], coordinates[1]);
     chosenPawn = (
       legalMoves.regularMoves.length === 0 &&
       legalMoves.jumpMoves.length === 0
