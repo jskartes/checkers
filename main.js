@@ -139,11 +139,10 @@ function handleBoardClick(event) {
     (chosenPawn && currentBoard[coordinates[0]][coordinates[1]])
   ) {
     legalMoves = checkForMoves(coordinates[0], coordinates[1]);
-    chosenPawn = currentBoard[coordinates[0]][coordinates[1]];
-    if (
+    chosenPawn = (
       legalMoves.regularMoves.length === 0 &&
       legalMoves.jumpMoves.length === 0
-    ) chosenPawn = null;
+    ) ? null : currentBoard[coordinates[0]][coordinates[1]];
   } else {
     makeMove(coordinates);
   }

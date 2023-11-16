@@ -57,7 +57,7 @@ header {
   font-size: 9vmin;
   font-weight: bold;
   margin-top: -2vmin;
-  text-shadow: 0 0 3vmin var(--light-tan);
+  text-shadow: 0 0 1.5vmin var(--light-tan);
 }
 
 header > span {
