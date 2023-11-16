@@ -11,6 +11,10 @@ const resetGameButton = document.getElementById('reset-game-button');
 board.addEventListener('click', handleBoardClick);
 resetGameButton.addEventListener('click', handleResetGameButtonClick);
 
+const selectSound = new Audio('./assets/sounds/select.wav');
+const jumpSound = new Audio('./assets/sounds/jump.wav');
+const winSound = new Audio('./assets/sounds/win.wav');
+
 
 class Pawn {
   constructor(color, boardPosition) {
@@ -82,7 +86,7 @@ function render() {
 function resetSquareCSS() {
   squares.forEach(square => {
     square.style.background = 'none';
-    square.style.backgroundColor = 'rgba(255, 0, 0, 0.7)';
+    square.style.backgroundColor = 'var(--board-red-square)';
     square.classList.remove(
       'chooseable', 
       'legal-regular-move', 
@@ -171,6 +175,7 @@ function handleBoardClick(event) {
       legalMoves.regularMoves.length === 0 &&
       legalMoves.jumpMoves.length === 0
     ) ? null : currentBoard[coordinates[0]][coordinates[1]];
+    if (chosenPawn) selectSound.play();
   } else {
     makeMove(coordinates);
   }
@@ -284,6 +289,7 @@ function makeMove(coordinates) {
     // ...removing opponent's jumped pawn(s) if applicable...
     legalMoves.jumpMoves.forEach((move, index) => {
       if (move[0][0] === coordinates[0] && move[0][1] === coordinates[1]) {
+        jumpSound.play();
         for (let i = 0; i <= index; i++) {
           const jumpedPawn = legalMoves.jumpMoves[i][1];
           currentBoard[jumpedPawn.boardPosition[0]][jumpedPawn.boardPosition[1]] = 0;
@@ -301,6 +307,7 @@ function makeMove(coordinates) {
 function checkForWinner() {
   if (players[1].length === 0) winner = 0;
   if (players[0].length === 0) winner = 1;
+  if (winner) winSound.play();
 }
 
 
