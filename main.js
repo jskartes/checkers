@@ -1,3 +1,5 @@
+/*===== CONFIGURATION =====*/
+
 const gameStateMessage = document.getElementById('game-state-message');
 const player1Pieces = document.getElementById('player-1-pieces');
 const player2Pieces = document.getElementById('player-2-pieces');
@@ -64,6 +66,9 @@ function init() {
   render();
 }
 
+
+/*===== RENDER FUNCTIONS =====*/
+
 function render() {
   resetSquareCSS();
   renderTextElements();
@@ -119,24 +124,26 @@ function renderPawns() {
   }
 }
 
+
+/*===== EVENT HANDLER FUNCTIONS =====*/
+
 function handleBoardClick(event) {
   if (!event.target.classList.contains('chooseable')) return;
 
-  // Split digits of id into array of two digits (board coordinates)
-  const coordinates = (
-    event.target.id.split('').map(coordinate => parseInt(coordinate))
-  );
-
+  // Split event.target's id into array of two digits (board coordinates)
+  const coordinates = event.target.getAttribute('id')
+                                  .split('')
+                                  .map(coordinate => parseInt(coordinate));
   if (
     !chosenPawn ||
-    currentBoard[coordinates[0]][coordinates[1]].color === chosenPawn.color 
+    (chosenPawn && currentBoard[coordinates[0]][coordinates[1]])
   ) {
     legalMoves = checkForMoves(coordinates[0], coordinates[1]);
+    chosenPawn = currentBoard[coordinates[0]][coordinates[1]];
     if (
       legalMoves.regularMoves.length === 0 &&
       legalMoves.jumpMoves.length === 0
-    ) return;
-    chosenPawn = currentBoard[coordinates[0]][coordinates[1]];
+    ) chosenPawn = null;
   } else {
     makeMove(coordinates);
   }
@@ -144,6 +151,9 @@ function handleBoardClick(event) {
   checkForWinner();
   render();
 }
+
+
+/*===== GAME LOGIC =====*/
 
 function checkForMoves(row, column) {
   let possibleMoves;
@@ -241,5 +251,7 @@ function checkForWinner() {
   if (players[0].length === 0) winner = 1;
 }
 
+
+/*===============*/
 
 init();
