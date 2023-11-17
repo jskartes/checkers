@@ -1,6 +1,5 @@
 /*===== CONFIGURATION =====*/
 
-const console = document.getElementById('console');
 const gameStateMessage = document.getElementById('game-state-message');
 const player1Pieces = document.getElementById('player-1-pieces');
 const player2Pieces = document.getElementById('player-2-pieces');
@@ -232,7 +231,6 @@ function checkForMoves(pawn, row, column) {
   // check for possible double jumps
   jumpMoves.forEach(move => {
     const futurePawn = new Pawn(pawn.color, [move[0][0], move[0][1]]);
-    futurePawn.isKing = pawn.isKing;
     const extraJumpMoves = checkForMoves(futurePawn, move[0][0], move[0][1]);
     if (extraJumpMoves.jumpMoves && extraJumpMoves.jumpMoves.length > 0) {
       extraJumpMoves.jumpMoves.forEach(extraMove => jumpMoves.push(extraMove));
