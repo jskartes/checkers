@@ -8,7 +8,7 @@ You know it. You love it. It's here again, and ... it's pretty much just as you 
 
 ![](./assets/screenshots/full-view.png)
 
-Visual representation of possible moves. Be nice and maintain friendships; choose green. Or, choose red ... and face the consequences!
+Visual representation of possible moves. Be nice and maintain friendships; choose <span style='color: rgb(0, 225, 0)'>**green**</span>. Or, choose the <span style='color: red'>**red**</span> blinking square ... and face the consequences! Be sure to *double* check the red squares, as *double* (or maybe even *triple*) jumps may be present!
 
 ![](./assets/screenshots/move-shot.png)
 
