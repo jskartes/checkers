@@ -12,6 +12,8 @@ Visual representation of possible moves. Be nice and maintain friendships; choos
 
 ![](./assets/screenshots/move-shot.png)
 
+Be the first to wipe out all of your opponent's pieces to win the game!
+
 ---
 
 ### Technologies used:
